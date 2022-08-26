@@ -11,20 +11,6 @@ application {
   entities *
 }
 
-entity User {
-	uuid UUID 
-    civility Civility
-    firstName String
-    lastName String
-    phoneNumber String
-    homePhone String
-    email String
-    username String
-    roles Roles
-    password String
-    active Boolean
-}
-
 entity Company {
 	uuid UUID 
     name String
@@ -37,15 +23,6 @@ entity Company {
     phone String
     logo String
 }
-
-@embedded
-entity BankAccount {
-  	owner String
-   	iban String
-    bic String
-    domiciliation String
-}
-
 entity Department {
 	uuid UUID 
 	name DepartmentName
@@ -53,19 +30,7 @@ entity Department {
     phone String
 }
 
-@embedded
-entity Address {
-    city String
-    zipCode String
-    address String
-    addressType AddressType
-}
 
-@embedded
-entity Location {
-    latitude Double
-    longitude Double
-}
 
 entity Space {
 	uuid UUID 
@@ -99,24 +64,25 @@ enum Civility {
   BILLING_ADDRESS
 }
 
+
 relationship OneToOne {
-   User to Company
-   User to Department
-   User to Address
-   User to Space
    Company{bankAccount} to BankAccount 
+}
+relationship OneToOne {
    Space{adminCompany} to Company
-   Address to Location
+}
+relationship OneToOne {
+ Address to Location
 }
 
 relationship OneToMany {
    Space{companies} to Company
-   Space{users} to User
-   Company{addresses} to Address
 }
 
 relationship ManyToOne {
    Department to Company
+}
+relationship ManyToOne {
    Department to Space
 }
 
