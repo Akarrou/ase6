@@ -37,15 +37,6 @@ entity Company {
     phone String
     logo String
 }
-
-@embedded
-entity BankAccount {
-  	owner String
-   	iban String
-    bic String
-    domiciliation String
-}
-
 entity Department {
 	uuid UUID 
 	name DepartmentName
@@ -53,19 +44,7 @@ entity Department {
     phone String
 }
 
-@embedded
-entity Address {
-    city String
-    zipCode String
-    address String
-    addressType AddressType
-}
 
-@embedded
-entity Location {
-    latitude Double
-    longitude Double
-}
 
 entity Space {
 	uuid UUID 
@@ -101,22 +80,40 @@ enum Civility {
 
 relationship OneToOne {
    User to Company
-   User to Department
+}
+relationship OneToOne {
+    User to Department
+}
+relationship OneToOne {
    User to Address
-   User to Space
+}
+relationship OneToOne {
+  User to Space
+}
+relationship OneToOne {
    Company{bankAccount} to BankAccount 
+}
+relationship OneToOne {
    Space{adminCompany} to Company
-   Address to Location
+}
+relationship OneToOne {
+ Address to Location
 }
 
 relationship OneToMany {
    Space{companies} to Company
+}
+relationship OneToMany {
    Space{users} to User
+}
+relationship OneToMany {
    Company{addresses} to Address
 }
 
 relationship ManyToOne {
    Department to Company
+}
+relationship ManyToOne {
    Department to Space
 }
 
