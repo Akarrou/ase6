@@ -101,22 +101,40 @@ enum Civility {
 
 relationship OneToOne {
    User to Company
-   User to Department
+}
+relationship OneToOne {
+    User to Department
+}
+relationship OneToOne {
    User to Address
-   User to Space
+}
+relationship OneToOne {
+  User to Space
+}
+relationship OneToOne {
    Company{bankAccount} to BankAccount 
+}
+relationship OneToOne {
    Space{adminCompany} to Company
-   Address to Location
+}
+relationship OneToOne {
+ Address to Location
 }
 
 relationship OneToMany {
    Space{companies} to Company
+}
+relationship OneToMany {
    Space{users} to User
+}
+relationship OneToMany {
    Company{addresses} to Address
 }
 
 relationship ManyToOne {
    Department to Company
+}
+relationship ManyToOne {
    Department to Space
 }
 
